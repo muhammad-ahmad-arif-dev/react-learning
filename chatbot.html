@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Chatot</title>
+    <title>Chabot</title>
   </head>
   <body>
     <div class="js-container"></div>
@@ -51,26 +51,62 @@
         );
       }
 
+      function ChatMessages() {
+        const array = React.useState([{
+          message: 'hello chatboat',
+          sender: 'user',
+          id: 'id1'
+        }, {
+          message: 'Hello! How can I help you today?',
+          sender: 'robot',
+          id: 'id2'
+        }, {
+          message: 'can you get me todays date?',
+          sender: 'user',
+          id: 'id3'
+        }, {
+          message: 'Today is January 25',
+          sender: 'robot',
+          id: 'id4'
+        }]);
+        const chatMessages = array[0];
+        const setChatMessages = array[1];
+
+        function sendMessage() {
+          setChatMessages([
+            ...chatMessages,
+            {
+              message: 'test',
+              sender: 'user',
+              id: crypto.randomUUID()
+            }
+          ]);
+        }
+
+        return (
+          <>
+            <button onClick={sendMessage}>Send message</button>
+
+            {chatMessages.map((chatMessage) => {
+              return (
+                <ChatMessage
+                  message={chatMessage.message}
+                  sender={chatMessage.sender}
+                  key={chatMessage.id}
+                />
+              );
+            })}
+          </>
+        );
+      }
+
       function App() {
+      
+
         return (
           <>
             <ChatInput />
-            <ChatMessage 
-              message="hello chatboat" 
-              sender="user" 
-            />
-            <ChatMessage 
-              message="Hello! How can I help you today?" 
-              sender="robot" 
-            />
-            <ChatMessage 
-              message="can you get me todays date?" 
-              sender="user" 
-            />
-            <ChatMessage 
-              message="Today is September 27" 
-              sender="robot" 
-            />
+            <ChatMessages />
           </>
         );
       }
