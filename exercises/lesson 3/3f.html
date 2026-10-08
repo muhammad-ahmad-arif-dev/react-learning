@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Basics</title>
+  </head>
+  <body>
+    <div class="js-container"></div>
+    <!--react load-->
+    <script src="https://unpkg.com/supersimpledev/react.js"></script>
+    <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+    <!--babel load-->
+    <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+    <!--dayjs load-->
+    <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+
+    <script type="text/babel">
+      const container = document.querySelector('.js-container');
+      const root = ReactDOM.createRoot(container);
+
+      function ResetButton({setCount}) {
+        function resetCount() {
+          setCount(0);
+        }
+        return(
+          <button
+            onClick= {resetCount}
+          >Reset</button>
+        )
+      }
+
+      
+      function CounterButton({count, setCount}) {
+
+        function increaseCount() {
+          setCount(count + 1);
+        }
+
+        return(
+          <button
+            onClick= {increaseCount}
+          >Clicked {count} {count === 1? 'time' : 'times'}</button>
+        )
+      }
+
+      function App() {
+        const [count, setCount] = React.useState(0);
+
+
+        return(
+          <>
+            <CounterButton 
+              count={count}
+              setCount={setCount}
+            />
+            <CounterButton 
+              count={count}
+              setCount={setCount}
+            />
+            <ResetButton
+              setCount={setCount}
+            />
+          </>
+        )
+      }
+    
+      root.render(<App />)
+    </script>
+  </body>
+</html>
