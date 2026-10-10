@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Chabot</title>
+    <title>Chabot3l</title>
   </head>
   <body>
     <div class="js-container"></div>
@@ -16,12 +16,14 @@
 
       function ChatInput({ chatMessages, setChatMessages }) {
         const [inputText, setInputText] = React.useState('');
-
+        const [isLoading, setIsLoading] = React.useState(false);
+        
         function saveInputText(event) {
           setInputText(event.target.value);
         }
 
-        function sendMessage() {
+        async function sendMessage() {
+          
 
           const newChatMessages = [
             ...chatMessages,
@@ -31,10 +33,21 @@
               id: crypto.randomUUID()
             }
           ];
-          setChatMessages(newChatMessages);
 
-          
-          const response = Chatbot.getResponse(inputText);
+          setChatMessages([
+            ...newChatMessages,
+            { 
+              message: 'Loading...',
+              sender: 'robot',
+              id: crypto.randomUUID()
+            }
+          ]);
+            
+          setInputText('');
+
+          setIsLoading(true);
+
+          const response = await Chatbot.getResponseAsync(inputText);
           //console.log(response);
           setChatMessages([
             ...newChatMessages,
@@ -44,9 +57,21 @@
               id: crypto.randomUUID()
             }
           ]);
+          
+          setIsLoading(false);
 
-          setInputText('');
         }
+        
+
+        function keyPressed(event) {
+          if (event.key === 'Enter') {
+              sendMessage();  
+          }
+          if (event.key === 'Escape') {
+            setInputText('');
+          }
+        }
+
         return (
           <>
             <input 
@@ -54,9 +79,12 @@
               size="30"
               onChange= {saveInputText}
               value= {inputText}
-            />
-            <button
+              onKeyDown= {keyPressed}
+              disabled = {isLoading}
+              />
+              <button
               onClick={sendMessage}
+              disabled = {isLoading || inputText === ''}
             >Send</button>
           </>
         );
