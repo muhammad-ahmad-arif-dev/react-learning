@@ -1,0 +1,97 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>React Basics</title>
+      <style>
+        body {
+          font-family: Arial, Helvetica, sans-serif;
+        }
+        h2 {
+          margin-bottom: 25px;
+        }
+        .text-container {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          margin-bottom: 25px;
+        }
+        .form-input-text {
+          width: 220px;
+          padding: 11px 18px;
+          border-style: solid;
+          border-radius: 6px;
+          color: gray;
+          border-width: 1px;
+          font-size: 15px;
+        }
+        .button-container {
+          display: flex;
+          gap: 6px;
+        }
+        .form-button {
+          background-color: rgb(0, 123, 255);
+          color: white;
+          font-size: 15px;
+          border: none;
+          padding: 12px 18px;
+          border-radius: 6px;
+          cursor: pointer;
+        }
+
+      </style>
+    </head>
+    <body>
+      <div class="js-container"></div>
+      <!--react load-->
+      <script src="https://unpkg.com/supersimpledev/react.js"></script>
+      <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+      <!--babel load-->
+      <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+      <!--dayjs load-->
+      <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+
+      <script type="text/babel">
+        const container = document.querySelector('.js-container');
+        const root = ReactDOM.createRoot(container);
+
+        function App() {
+
+          const [showPassword, setShowPassword] = React.useState(false);
+
+          function showPasswordFunc() {
+            if (showPassword) {
+              setShowPassword(false);
+            } else {
+              setShowPassword(true);
+            }
+          }
+
+          return(
+            <>
+              <h2>Hello, welcomie to my website</h2>
+              <div className="text-container">
+                <input className="form-input-text" type="email" placeholder="Email" />
+                <div>
+                  <input
+                    className="form-input-text"
+                    type= {showPassword === false? 'password' : 'text'}
+                    placeholder="Password" 
+                  />
+                  <button
+                    onClick= {showPasswordFunc}
+                  >{showPassword === false? 'show' : 'hide'}</button>
+                </div>
+              </div>
+              <div className="button-container">
+                <button className="form-button">Login</button>
+                <button className="form-button">Password</button>
+              </div>
+            </>
+          )
+        }
+
+        root.render(<App />);
+      </script>
+    </body>
+  </html>
