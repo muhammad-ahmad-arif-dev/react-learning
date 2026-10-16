@@ -1,0 +1,44 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>React Basics</title>
+      <style>
+
+      </style>
+    </head>
+    <body>
+      <div class="js-container"></div>
+      <!--react load-->
+      <script src="https://unpkg.com/supersimpledev/react.js"></script>
+      <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+      <!--babel load-->
+      <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+      <!--dayjs load-->
+      <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+
+
+      <script type="text/babel">
+        const container = document.querySelector('.js-container');
+        const root = ReactDOM.createRoot(container);
+
+        function App() {
+
+          const [time, setTime] = React.useState(dayjs().format('HH:mm:ss'));
+          // console.log(time);
+          React.useEffect(() => {
+            setInterval(() => {
+              setTime(dayjs().format('HH:mm:ss'));
+              console.log('run code');
+            }, 1000);
+          }, /*[]*/);
+          return(
+            <>
+              <p>Current time: {time}</p>
+            </>
+          )
+        }
+        root.render(<App />);
+      </script>
+    </body>
+  </html>

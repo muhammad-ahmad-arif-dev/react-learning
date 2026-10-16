@@ -22,15 +22,15 @@
         const container = document.querySelector('.js-container');
         const root = ReactDOM.createRoot(container);
 
-        function App() {;
+        function App() {
 
           const [time, setTime] = React.useState(dayjs().format('HH:mm:ss'));
           // console.log(time);
           React.useEffect(() => {
             setInterval(() => {
               setTime(dayjs().format('HH:mm:ss'));
-            }, 1000)
-          });
+            }, 1000);
+          }, []);
 
           return(
             <>
