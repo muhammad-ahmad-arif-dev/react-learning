@@ -1,0 +1,79 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>React Basics</title>
+      <style>
+        body {
+          margin-top: 0;
+          margin-bottom: 0;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+        .buttons-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: rgb(222, 222, 222);
+          height: 100vh;
+          gap: 10px;
+        }
+        button {
+          background-color: rgb(25, 135, 84);
+          border: none;
+          padding: 12px;
+          color: white;
+          cursor: pointer;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="js-container"></div>
+      <!--react load-->
+      <script src="https://unpkg.com/supersimpledev/react.js"></script>
+      <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+      <!--babel load-->
+      <script src="https://unpkg.com/supersimpledev/babel.js"></script>
+
+      <!--dayjs load-->
+      <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
+
+
+      <script type="text/babel">
+        const container = document.querySelector('.js-container');
+        const root = ReactDOM.createRoot(container);
+
+        function App() {
+          const [count, setCount] = React.useState(0);
+          const buttonRef = React.useRef();
+
+          function clickButton() {
+            setCount(count + 1);
+          }
+          function resetButton() {
+            setCount(0);
+          }
+          function autoClick() {
+              setInterval(() => {
+                const buttonElem = buttonRef.current;
+                if (buttonElem) {
+                  buttonElem.click();
+                }
+              }, 1000);
+          }
+
+          return(
+            <div
+              className="buttons-container"
+            >
+              <button 
+                onClick={clickButton} 
+                ref={buttonRef}
+              >Clicked {count} {count === 1? 'time' : 'times'}</button>
+              <button onClick={resetButton}>Reset</button>
+              <button onClick={autoClick}>Auto Click</button>
+            </div>
+          )
+        }
+        root.render(<App />);
+      </script>
+    </body>
+  </html>
