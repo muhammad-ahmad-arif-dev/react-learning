@@ -68,6 +68,11 @@
       .welcome-message {
         text-align: center;
       }
+      .loading-spinner {
+        border: red;
+        height: 38px;
+        margin: -14px;
+      }
       
     </style>
   </head>
@@ -105,7 +110,7 @@
           setChatMessages([
             ...newChatMessages,
             { 
-              message: 'Loading...',
+              message: <img src="loading-spinner.gif" className="loading-spinner" />,
               sender: 'robot',
               id: crypto.randomUUID()
             }
@@ -196,16 +201,19 @@
         );
       }
 
-      function ChatMessages({ chatMessages }) {
-        const chatMessagesRef = React.useRef(null);
+      function useAutoScroll(dependencies) {
+        const containerRef = React.useRef(null);
         React.useEffect(() => {
-          const containerElem = chatMessagesRef.current;
+          const containerElem = containerRef.current;
           if (containerElem) {
             containerElem.scrollTop = containerElem.scrollHeight;
           }
-        }, [chatMessages]);
+        }, dependencies);
+        return containerRef;
+      }
 
-
+      function ChatMessages({ chatMessages }) {
+        const chatMessagesRef = useAutoScroll([chatMessages]);
         return (
           <div 
             className="chat-messages-container"
