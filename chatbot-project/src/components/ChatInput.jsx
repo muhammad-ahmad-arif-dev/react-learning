@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Chatbot } from 'supersimpledev';
+import './ChatInput.css';
 import LoadingSpinner from '../assets/loading-spinner.gif';
 
 export function ChatInput({ chatMessages, setChatMessages }) {
