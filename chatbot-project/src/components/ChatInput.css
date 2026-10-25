@@ -19,3 +19,13 @@
   display: flex;
   margin-bottom: 60px;
 }
+.clear-button {
+  background-color: rgb(214, 216, 215);
+  color: rgb(0, 0, 0);
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  margin-left: 10px;
+  font-size: 15px;
+  cursor: pointer;
+}
