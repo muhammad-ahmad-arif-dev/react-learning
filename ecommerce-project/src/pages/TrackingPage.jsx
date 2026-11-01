@@ -5,8 +5,9 @@ import './TrackingPage.css';
 export function TrackingPage() {
   return (
     <>
-
       <title>Order Tracking</title>
+      <link rel="icon" type="image/svg+xml" href="/images/tracking-favicon.png" />
+
       <Header />
 
       <div className="tracking-page">
