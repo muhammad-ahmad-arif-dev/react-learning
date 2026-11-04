@@ -1,8 +1,20 @@
+import dayjs from 'dayjs';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { CheckoutHeader } from './CheckoutHeader';
 import { formatMoney } from '../../utils/money';
 import './CheckoutPage.css';
 
 export function CheckoutPage({ cart }) {
+  const [deliveryOptions, setDeliveryOptions] = useState([]);
+
+  useEffect(() => {
+    axios.get('/api/delivery-options?expand=estimatedDeliveryTime')
+      .then((response) => {
+        setDeliveryOptions(response.data);
+      });
+  }, []);
+
   return (
     <>
       <title>Checkout</title>
@@ -50,6 +62,30 @@ export function CheckoutPage({ cart }) {
                       <div className="delivery-options-title">
                         Choose a delivery option:
                       </div>
+                      {deliveryOptions.map((deliveryOption) => {
+                        let priceString = 'FREE Shipping';
+
+                        if (deliveryOption.priceCents > 0) {
+                          priceString = `${formatMoney(deliveryOption.priceCents)} - Shipping`;
+                        }
+
+                        return (
+                          <div key={deliveryOption.id} className="delivery-option">
+                            <input type="radio" 
+                              checked=
+                              className="delivery-option-input"
+                              name={`delivery-option-${cartItem.productId}`} />
+                            <div>
+                              <div className="delivery-option-date">
+                                {dayjs(deliveryOption.estimatedDeliveryTimeMs).format('dddd, MMMM, D')}
+                              </div>
+                              <div className="delivery-option-price">
+                                {priceString}
+                              </div>
+                            </div>
+                          </div>
+                        )
+                      })}
                       <div className="delivery-option">
                         <input type="radio" checked
                           className="delivery-option-input"
