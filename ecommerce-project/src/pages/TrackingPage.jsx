@@ -1,4 +1,5 @@
 import axios from 'axios';
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router';
 import { Header } from '../components/Header';
@@ -21,6 +22,10 @@ export function TrackingPage({ cart }) {
     return null;
   }
 
+  const orderProduct = order.products.find((orderProduct) => {
+    return orderProduct.productId === productId;
+  });
+
   return (
     <>
       <title>Order Tracking</title>
@@ -35,19 +40,19 @@ export function TrackingPage({ cart }) {
           </Link>
 
           <div className="delivery-date">
-            Arriving on Monday, June 13
+            Arriving on {dayjs(orderProduct.estimatedDeliveryTimeMs).format('ddd, MMMM D')}
           </div>
 
           <div className="product-info">
-            {productId.name}
+            {orderProduct.product.name}
           </div>
 
           <div className="product-info">
-            Quantity: 1
+            Quantity: {orderProduct.quantity}
           </div>
 
-          <img className="product-image" src="images/products/athletic-cotton-socks-6-pairs.jpg" />
-
+          <img className="product-image" src={orderProduct.product.image} />
+            
           <div className="progress-labels-container">
             <div className="progress-label">
               Preparing
