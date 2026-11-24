@@ -14,7 +14,6 @@ export function HomePage({ cart, loadCart }) {
     };
 
     getHomeData();
-    console.log('hello');
 
   }, []);
 
